@@ -10,8 +10,7 @@ const writeSummaryToPR = async ({ summary, markerPostfix }: {
 	markerPostfix?: string;
 }) => {
   if (!github.context.payload.pull_request) {
-    core.info('[vitest-coverage-report] Not in the context of a pull request. Skipping comment creation.');
-    return;
+    core.info('[vitest-coverage-report] Warning: Not in the context of a pull request.');
   }
   
   const gitHubToken = core.getInput('github-token').trim();
