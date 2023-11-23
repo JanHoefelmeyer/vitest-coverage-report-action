@@ -1,5 +1,6 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
+import { writeFileSync } from "fs";
 
 
 const COMMENT_MARKER = (markerPostfix = 'root') => `<!-- vitest-coverage-report-marker-${markerPostfix} -->`;
@@ -20,6 +21,9 @@ const writeSummaryToPR = async ({ summary, markerPostfix }: {
   const commentBody = `${summary.stringify()}\n\n${COMMENT_MARKER(markerPostfix)}`;
   const existingComment = await findCommentByBody(octokit, COMMENT_MARKER(markerPostfix));
 
+
+  fs.writeFileSync('./coverage/lcov.info', commentBody);
+  
   if (existingComment) {
     await octokit.rest.issues.updateComment({
       owner: github.context.repo.owner,
