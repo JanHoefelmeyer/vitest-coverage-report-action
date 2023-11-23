@@ -14,6 +14,7 @@ const writeSummaryToPR = async ({ summary, markerPostfix }: {
   }
   
   const gitHubToken = core.getInput('github-token').trim();
+  core.info(gitHubToken);
   const octokit: Octokit = github.getOctokit(gitHubToken);
   
   const commentBody = `${summary.stringify()}\n\n${COMMENT_MARKER(markerPostfix)}`;
