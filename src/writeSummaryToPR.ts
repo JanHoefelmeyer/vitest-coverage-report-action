@@ -10,11 +10,6 @@ const writeSummaryToPR = async ({ summary, markerPostfix }: {
 	summary: typeof core.summary; 
 	markerPostfix?: string;
 }) => {
-  if (!github.context.payload.pull_request) {
-    core.info('[vitest-coverage-report] Warning: Not in the context of a pull request.');
-    core.info(core.getInput('github-token').trim());
-  }
-  
   const gitHubToken = core.getInput('github-token').trim();
   
   const octokit: Octokit = github.getOctokit(gitHubToken);
